@@ -1,8 +1,10 @@
-#API Ta-Te-Ti
+# API Ta-Te-Ti
 
-##Setup of the project
+## Setup of the project
 
 1. Install docker [GET DOCKER](https://docs.docker.com/engine/install/ubuntu/)
+
+2. Download mongo image 
 
 `docker pull mongo`
 
@@ -18,6 +20,20 @@
 4. Download the proyect and run it
 
 `git clone https://github.com/nahimfelicito/api-ta-te-ti.git`
+
 `cd api-ta-te-ti`
+
 `npm install`
+
 `npm start`
+
+## Endpoints
+
+v1/board/:id -GET
+
+v1/board/move -PUT
+
+v1/room/create -POST
+
+v1/room/join -POST
+
