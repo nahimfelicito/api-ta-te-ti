@@ -30,9 +30,9 @@
 
 ## Endpoints
 
-###v1/board/:id -GET {id_room in url}
+### v1/board/:id -GET {id_room in url}
 
-###v1/board/move -PUT 
+### v1/board/move -PUT 
 
     {
         "move": "index", 
@@ -40,13 +40,13 @@
         "room_id": "room_id"
     }
 
-###v1/room/create -POST 
+### v1/room/create -POST 
 
     {
         "name": "room_name"
     }
 
-###v1/room/join -POST 
+### v1/room/join -POST 
 
     {
         "id_room': "id_room"
