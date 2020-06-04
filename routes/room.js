@@ -29,7 +29,7 @@ router.route('/create').post( //send in body name of the room
         } catch (error) {
             res.json({
                 status: 'fail',
-                response: error
+                response: error.message
             })
         }
     })

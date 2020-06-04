@@ -8,7 +8,7 @@ router.get('/',
             var connection = await database.connect();
             res.json({
                 status: 'success',
-                response: "you are in/board"
+                response: "you are in /board"
             });
         } catch (error) {
             res.json({
@@ -30,7 +30,7 @@ router.route('/:id').get( //send room id in params
         } catch (error) {
             res.json({
                 status: 'fail',
-                response: error
+                response: error.message
             })
         }
     })
@@ -46,7 +46,7 @@ router.route('/move').put( //send room id, and player id in params
         } catch (error) {
             res.json({
                 status: 'fail',
-                response: error
+                response: error.message
             })
         }
     })

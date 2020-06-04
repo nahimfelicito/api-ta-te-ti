@@ -36,7 +36,7 @@ var create_room = async (name) => { //recieve room name, creates a player and bo
             "owner_room_id": player._id,
             "guest_room_id": null,
             "playing": false,
-            "is_owner_turn": true,
+            "turn": null,
             "finished": false,
             "winner": null,
             "draw": false
@@ -69,6 +69,7 @@ var join_room = async (id) => { //searches for the room, check if it is avialabl
         update = {
             guest_room_id: player._id,
             playing: true,
+            turn: room.owner_room_id
         }
         await collection.updateOne({ _id: room._id }, { $set: update });
         room = await get_room(id);
