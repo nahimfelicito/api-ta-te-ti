@@ -5,7 +5,6 @@ var database = require('../database/board-database');
 router.get('/',
     async (req, res) => {
         try {
-            var connection = await database.connect();
             res.json({
                 status: 'success',
                 response: "you are in /board"
