@@ -6,10 +6,10 @@ const { MyErrorHandler } = require('../error/error_handler')
 
 const db_host = process.env.DB_HOST;
 const db_name = process.env.DB_NAME;
-const rooms_collection = "rooms";
+const rooms_collection = 'rooms';
 
 var connect = async () => {
-    console.log('Attempt to connect to boards collection: ', db_host);
+    console.log('Attempt to connect: ', db_host);
     return MongoClient.connect(db_host, { useNewUrlParser: true, useUnifiedTopology: true })
         .catch(err => {
             console.log('Connection error: ', err);
@@ -68,7 +68,7 @@ var make_a_move = async (body) => {
         if(is_board_complete){
             throw new MyErrorHandler("The board is complete")
         }
-        room = checkWinner(room, body.move, x_or_o);
+        room = await checkWinner(room, body.move, x_or_o);
         console.log(room.board);
         update = {
             "board": room.board,
@@ -80,13 +80,15 @@ var make_a_move = async (body) => {
         }
         const db = client.db(db_name);
         let collection = db.collection(rooms_collection);
-        await collection.updateOne({ _id: body.room_id }, { $set: update });
-        room = await rooms_database.get_room(body.room_id);
-        console.log(room);
+        await collection.updateOne({ _id: new mongo.ObjectID(body.room_id) }, { $set: update })
+        var updated_room = await rooms_database.get_room(body.room_id);
     } catch (error) {
         throw error;
+    } finally {
+        client.close();
     }
-    return room;
+
+    return updated_room;
 }
 
 function checkBoardComplete(board) {
@@ -131,7 +133,7 @@ function checkWinner(room, move, x_or_o){
     }
     room.board = board;
     var check_board_complete = checkBoardComplete(board);
-    if(check_board_complete){
+    if(check_board_complete && !room.finished){
         room.draw = true;
         room.finished = true;
         room.playing = false;
@@ -139,7 +141,7 @@ function checkWinner(room, move, x_or_o){
     }
     if(turn.equals(owner_room_id)){//change turn
         room.turn = guest_room_id;
-    } else if (turn.equals(owner_room_id)){
+    } else if (turn.equals(guest_room_id)){
         room.turn = owner_room_id;
     }
     return room;

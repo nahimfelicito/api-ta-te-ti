@@ -50,6 +50,22 @@ router.route('/join').post( //send in body id of the room
         }
     })
 
+router.route('/show-room').get( //send in body id of the room
+    async (req, res) => {
+        try {
+            var result = await database.get_room(req.body.id);
+            res.json({
+                status: 'sucess',
+                response: result
+            });
+        } catch (error) {
+            res.json({
+                status: 'fail',
+                response: error.message
+            })
+        }
+    })
+
 
 
 
