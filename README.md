@@ -8,17 +8,19 @@
 
 `$ docker pull mongo`
 
-2. Run a mongo image for the database, ta-te-ti can be changed for amy name you want but do not forget to change .env file with the new name
+3. Run a mongo image for the database, ta-te-ti can be changed for amy name you want but do not forget to change .env file with the new name
 
 `$ docker run -d -p 27017-27019:27017-27019 --name ta-te-ti mongo`
 
-3. Enter the container and create de database 
+4. Enter the container and create de database 
 
 `$ docker exec -it ta-te-ti mongo`
 
+`# mongo`
+
 `> use (db_name)`
 
-4. Download the proyect and run it
+5. Download the proyect and run it
 
 `$ git clone https://github.com/nahimfelicito/api-ta-te-ti.git`
  
@@ -30,24 +32,30 @@
 
 ## Endpoints
 
-### v1/board/:id -GET {id_room in url}
-
-### v1/board/move -PUT 
-
-    {
-        "move": "index", 
-        "user_id": "user_id",
-        "room_id": "room_id"
-    }
-
-### v1/room/create -POST 
+### v1/room/create :arrow_right: POST 
 
     {
         "name": "room_name"
     }
 
-### v1/room/join -POST 
+### v1/room/join :arrow_right: POST 
 
     {
         "id_room': "id_room"
+    }
+
+### v1/room/show-info :arrow_right: GET 
+
+    {
+        "id_room': "id_room"
+    }
+
+### v1/board/:id :arrow_right: GET {id_room in url}
+
+### v1/board/move :arrow_right: PUT 
+
+    {
+        "move": "index", 
+        "user_id": "user_id",
+        "room_id": "room_id"
     }
